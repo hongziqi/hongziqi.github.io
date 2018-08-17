@@ -1,0 +1,26 @@
+---
+layout: base
+title: Hong Ziqi
+excerpt: Hong Ziqi | 洪子淇
+---
+
+{%- if site.author.type == 'organization' -%}
+  {%- assign _author_itemtype = 'http://schema.org/Organization' -%}
+{%- else -%}
+  {%- assign _author_itemtype = 'http://schema.org/Person' -%}
+{%- endif -%}
+
+<div itemscope itemtype="{{ _author_itemtype }}" class="home">
+  <div class="main">
+    <div class="content">
+      <div class="my-photo">
+        <img itemprop="image" alt="my photo" src="assets/images/avatar.jpg" />
+      </div>
+      <h1 itemprop="name" class="title-text">{{ site.author.name }}</h1>
+      {% include author-links.html author=site.author %}
+      <p><a itemprop="url" class="social-link blog" title="Visit my blog." href="/blog" target="_self">Visit My Blog</a></p>
+    </div>
+  </div>
+</div>
+<script>{%- include scripts/common.js -%}</script>
+{% include analytics.html %}

@@ -1,0 +1,63 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+{%- include snippets/get-lang.html -%}
+<html lang="{{ __return }}">
+  <head>
+    {%- include head.html -%}
+    <script>
+      {%- include scripts/utils.js -%}
+      {%- include scripts/lib/throttle.js -%}
+      {%- include scripts/lib/lazyload.js -%}
+    </script>
+    {%- include scripts/variables.html -%}
+  </head>
+  <body>
+    <div class="root" data-is-touch="false">
+      {{ content }}
+    </div>
+    <script>{%- include scripts/common.js -%}</script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async>
+    MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']],
+  processEscapes: true
+  },
+displayAlign : "left",
+TeX: {
+            equationNumbers: {
+                autoNumber: "all",
+                useLabelIds: true
+            }
+        },
+        "HTML-CSS": {
+            linebreaks: {
+                automatic: true
+            },
+            scale: 100,
+            styles: {
+              ".MathJax_Display": {
+                "text-align": "left",
+                "width" : "auto",
+                "margin": "10px 0px 10px 0px !important",
+                "background-color": "#f5f5f5 !important",
+                "border-radius": "3px !important",
+                border:  "1px solid #ccc !important",
+                padding: "5px 5px 5px 5px !important"
+              },
+              ".MathJax": {
+                "background-color": "#f5f5f5 !important",
+                padding: "2px 2px 2px 2px !important"
+              }
+            }
+        },
+        SVG: {
+            linebreaks: {
+                automatic: true
+            }
+        }
+});
+    </script>
+  </body>
+</html>
