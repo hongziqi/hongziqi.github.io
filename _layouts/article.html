@@ -52,14 +52,14 @@ type: article
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
-var gitment = new Gitment({
+  var gitment = new Gitment({
+    id: location.pathname,
     owner: 'hongziqi',
     repo: 'hongziqi.github.io',
     oauth: {
         client_id: '5bb866e39c83c17169b5',
         client_secret: '2a510eb3480dcef3d9a7077af4d969e6048530f8',
     },
-});
-gitment.id = gitment.id.substr(32);
+  });
 gitment.render('gitmentContainer');
 </script>
