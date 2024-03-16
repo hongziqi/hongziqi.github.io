@@ -43,7 +43,7 @@ features = ["page builder", "widgets", "themes", "search", "research publication
   homepage = "https://georgecushen.com"
 
 # If porting an existing theme
-[original]
-  name = ""
-  homepage = ""
-  repo = ""
+# [original]
+#   name = ""
+#   homepage = ""
+#   repo = ""
