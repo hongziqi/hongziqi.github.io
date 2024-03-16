@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技术博客 | 小柒的博客</title>
+    <link>http://localhost:1313/blog/</link>
+      <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <description>技术博客</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-Hans</language><lastBuildDate>Tue, 12 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/logo.svg</url>
+      <title>技术博客</title>
+      <link>http://localhost:1313/blog/</link>
+    </image>
+    
+    <item>
+      <title>HTTP各个版本的区别</title>
+      <link>http://localhost:1313/blog/computer-network-http-network-20240312/</link>
+      <pubDate>Tue, 12 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/computer-network-http-network-20240312/</guid>
+      <description>&lt;h4 id=&#34;http09&#34;&gt;HTTP/0.9&lt;/h4&gt;
+&lt;p&gt;HTTP/0.9 是HTTP协议的第一个版本，1990年问世，是一个非常简单的协议，只支持GET方法，没有HEADER等描述数据的信息，并且服务器只能回应HTML格式的字符串，不能回应别的格式，当服务器发送完数据后，就关闭TCP连接。&lt;/p&gt;
+&lt;h4 id=&#34;http10&#34;&gt;HTTP/1.0&lt;/h4&gt;
+&lt;p&gt;HTTP/1.0 是HTTP协议的第二个版本，发布在1991年，任何形式的内容都可以发送，还能传输图像、视频、二进制文件，而且增加了POST等方法，增加了请求头，状态码等等功能，为互联网的发展奠定了基础。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;无状态&lt;/strong&gt;：无连接的应用层协议&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无连接&lt;/strong&gt;：每次请求都需要建立连接，请求结束后断开连接。如果想要建立长连接，需要在请求头中加上&lt;code&gt;Connection: keep-alive&lt;/code&gt;字段&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无法复用连接&lt;/strong&gt;：每个TCP连接只能发送一个请求，发送完毕后就关闭连接，如果需要请求多个资源，就需要多次建立连接&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;队头阻塞&lt;/strong&gt;：规定下一个请求必须等待上一个请求的响应结束后才能发送，假如上一个请求响应一直不到达，那么后面的请求就会被阻塞&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不支持断点续传&lt;/strong&gt;：每次都会传送全部数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;http11&#34;&gt;HTTP/1.1&lt;/h4&gt;
+&lt;p&gt;HTTP/1.1 最大的改进是支持持久连接，即TCP连接默认不关闭，可以被多个请求复用，减少了建立和关闭连接的消耗和延迟，提高了传输效率，并且增加了许多方法：PUT、PATCH、HEAD、OPTIONS、DELETE。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;长连接&lt;/strong&gt;：TCP连接默认不关闭(即不需要设置keep-alive)，可以被多个请求复用，如果客服端想要关闭连接，可以在请求头中加上&lt;code&gt;Connection: close&lt;/code&gt;字段，要求服务器关闭TCP连接&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;管道机制&lt;/strong&gt;：在一个TCP连接中，客户端可以同时发送多个请求，但是服务器只能按照请求的顺序依次响应。举个例子，以前是，在一个TCP连接中，先发送A请求，等到A请求响应结束后，再发送B请求，等待B请求响应结束。现在可以同时发送A、B两个请求，但服务器只能按照A、B的顺序依次响应，如果A请求响应很慢，还是会造成队头阻塞&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;支持断点续传&lt;/strong&gt;：支持断点续传，即客户端可以在上次下载的地方继续下载，而不需要重新下载整个文件，这个功能是通过请求头中的&lt;code&gt;Range&lt;/code&gt;字段实现的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;http20&#34;&gt;HTTP/2.0&lt;/h4&gt;
+&lt;p&gt;HTTP/2.0之前都是基于http协议，使用明文传输，不安全，而HTTP/2.0是基于https协议，使用加密传输，安全性更高。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;二进制分帧&lt;/strong&gt;：HTTP/2.0在应用层和传输层之间增加了一个二进制分帧层，将所有传输的信息分割为更小的消息和帧，并对它们采用二进制格式的编码，其中HTTP/1.x的头信息被封装到一个HEADERS帧，HTTP/2.0的数据则被封装到一个DATA帧
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /blog/computer-network-http-network-20240312/images/binaryFraming_hu9f6e8299ded85ea3f64f0b36c6e5bc64_123897_f07ee45cead520e8851b552d1bc18079.webp 400w,
+               /blog/computer-network-http-network-20240312/images/binaryFraming_hu9f6e8299ded85ea3f64f0b36c6e5bc64_123897_465ee8ebb18af8c81186ad94479cbbe9.webp 760w,
+               /blog/computer-network-http-network-20240312/images/binaryFraming_hu9f6e8299ded85ea3f64f0b36c6e5bc64_123897_1200x1200_fit_q85_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/blog/computer-network-http-network-20240312/images/binaryFraming_hu9f6e8299ded85ea3f64f0b36c6e5bc64_123897_f07ee45cead520e8851b552d1bc18079.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;399&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

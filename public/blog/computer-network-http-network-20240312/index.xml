@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTP各个版本的区别 | 小柒的博客</title>
+    <link>http://localhost:1313/blog/computer-network-http-network-20240312/</link>
+      <atom:link href="http://localhost:1313/blog/computer-network-http-network-20240312/index.xml" rel="self" type="application/rss+xml" />
+    <description>HTTP各个版本的区别</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-Hans</language><lastBuildDate>Tue, 12 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_huf283a00b952c444d79e6254d8738abdf_6707_512x512_fill_lanczos_center_3.png</url>
+      <title>HTTP各个版本的区别</title>
+      <link>http://localhost:1313/blog/computer-network-http-network-20240312/</link>
+    </image>
+    
+  </channel>
+</rss>
