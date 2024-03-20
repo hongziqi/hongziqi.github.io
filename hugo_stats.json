@@ -27,6 +27,7 @@
       "link",
       "meta",
       "nav",
+      "ol",
       "p",
       "rb",
       "rt",
@@ -51,6 +52,7 @@
       "article-style",
       "article-tags",
       "article-title",
+      "article-widget",
       "author-card",
       "avatar",
       "avatar-circle",
@@ -212,6 +214,7 @@
       "about",
       "blogs",
       "contact",
+      "ddd-架构",
       "http09",
       "http10",
       "http11",
@@ -231,7 +234,16 @@
       "section-experience",
       "section-skills",
       "tags",
-      "top"
+      "top",
+      "传统的-mvc-和-ddd-的区别",
+      "传统的-mvc-架构",
+      "协程",
+      "基础结构层",
+      "应用层",
+      "用户接口层",
+      "线程",
+      "进程",
+      "领域层"
     ]
   }
 }

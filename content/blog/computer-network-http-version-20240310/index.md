@@ -1,11 +1,14 @@
 ---
 title: HTTP各个版本的区别
 summary: HTTP/0.9、1.0、1.1、2.0、3.0区别
-date: 2024-03-12
+date: 2024-03-10
+draft: false
+featured: false
+highlight: true
 categories:
-  - computer-network
+  - Computer-Network
 tags:
-  - HTTP/TCP
+  - HTTP/TCP、UDP
 ---
 
 #### HTTP/0.9
