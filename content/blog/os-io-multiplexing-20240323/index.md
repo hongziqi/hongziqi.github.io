@@ -155,7 +155,7 @@ struct pollfd {
 
 int poll(struct pollfd *fds, unsigned long nfds, int timeout);
 ```
-poll 本质上和 select 是一样的，只不过 poll 没有使用bitmap记录fd的状态，而是使用 `pollfd` 结构体，这样就避免了 select 的最大连接数限制，而且用`revents`标记是否有数据，这样每次有就绪的时间只需要重置`revents`，而select需要重置整个`fd_set`。
+poll 本质上和 select 是一样的，只不过 poll 没有使用bitmap记录fd的状态，而是使用 `pollfd` 结构体，这样就避免了 select 的最大连接数限制，而且用`revents`标记是否有数据，这样每次有就绪的事件只需要重置`revents`，而select需要重置整个`fd_set`。
 但是 poll 也有和 select 一样的缺点，并没有优化大量描述符数组从用户态复制到内核态的消耗问题，而且 poll 返回后，仍需要遍历所有的`pollfd`结构体，找到就绪的fd，这个过程依旧效率低下。
 
 ##### epoll
@@ -200,7 +200,7 @@ epoll 的优点：
 
 [//]: # (| 内存拷贝 | 每次调用select拷贝 | 每次调用poll拷贝 | fd首次调用epoll_ctl拷贝到共享内存，每次调用epoll_wait不拷贝 |)
 
-[//]: # (| 底层结构 | bitmap       | 数组         | 红黑树                                      |)
+[//]: # (| 底层结构 | 数组bitmap       | 链表         | 红黑树                                      |)
 
 [//]: # (| 处理机制 | 线性轮询         | 线性轮询         | 事件驱动&#40;fd挂在红黑树，通过epoll_wait返回&#41;             |)
 
