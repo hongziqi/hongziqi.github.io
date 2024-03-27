@@ -1,0 +1,15 @@
+{{ $utterances_enable := site.Params.utterances.enable }}
+{{ $repo := site.Params.utterances.repo }}
+{{ $issue_term := site.Params.utterances.issue_term }}
+{{ $theme := site.Params.utterances.theme }}
+{{ $crossorigin := site.Params.utterances.crossorigin }}
+
+{{ if .Params.comments }}
+<script src="https://utteranc.es/client.js"
+        repo="{{ $repo }}"
+        issue-term="{{ $issue_term }}"
+        theme="{{ $theme }}"
+        crossorigin="{{ $crossorigin }}"
+        async>
+</script>
+{{ end }}

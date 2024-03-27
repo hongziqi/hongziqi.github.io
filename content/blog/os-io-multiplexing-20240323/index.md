@@ -12,6 +12,8 @@ categories:
   - Operating-System
 tags:
   - OS
+  
+comments: true
 ---
 
 ## IO模型

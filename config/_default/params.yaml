@@ -124,3 +124,12 @@ security:
 
 power_ups:
   hide_published_with: true
+
+# utterances
+utterances:
+  enable: true
+  repo: 'hongziqi/hongziqi.github.io'
+  issue_term: 'title'
+  theme: 'github-light'
+  crossorigin: 'anonymous'
+
