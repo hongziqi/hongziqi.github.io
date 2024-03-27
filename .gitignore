@@ -11,3 +11,4 @@ node_modules/
 package-lock.json
 go.sum
 .hugo_build.lock
+hugo_stats.json
