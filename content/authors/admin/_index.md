@@ -17,7 +17,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: 佛系·咸鱼·猫奴·程序媛
+role: 佛系·猫奴·程序媛
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -25,7 +25,7 @@ organizations:
     url: https://hongziqi.github.io/
 
 # Short bio (displayed in user profile at end of posts)
-bio: 在无聊的时间里就从事学习。  ——亚伯拉罕·林肯
+bio: 在无聊的时间里就从事学习。  —— 亚伯拉罕·林肯
 
 # Interests to show in About widget
 interests:

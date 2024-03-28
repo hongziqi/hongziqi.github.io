@@ -11,6 +11,7 @@ tags:
   - HTTP/TCP、UDP
 
 toc: true
+comments: true
 ---
 
 ## HTTP/0.9

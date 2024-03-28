@@ -9,6 +9,7 @@ categories:
   - Architecture-Design
 
 toc: true
+comments: true
 ---
 
 ## 传统的 MVC 架构

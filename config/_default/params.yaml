@@ -128,8 +128,32 @@ power_ups:
 # utterances
 utterances:
   enable: true
+  # Client script endpoint.
+  endpoint: "https://utteranc.es/client.js"
+
+  # The GitHub repository, required.
   repo: 'hongziqi/hongziqi.github.io'
-  issue_term: 'title'
+
+  # The mapping between blog posts and GitHub issues. Available options:
+  #   pathname: Utterances will search for an issue whose title contains the blog post's pathname URL component.
+  #   url:      Utterances will search for an issue whose title contains the blog post's URL.
+  #   title:    Utterances will search for an issue whose title contains the blog post's title.
+  #   og:title: Utterances will search for an issue whose title contains the page's Open Graph title meta.
+  mapping: "title"
+
+  # The label that will be assigned to issues created by Utterances.
+  label: "comments"
+
+  # Theme. Available options:
+  #   github-light:           GitHub Light
+  #   github-dark:            GitHub Dark
+  #   preferred-color-scheme: Preferred Color Scheme
+  #   github-dark-orange:     GitHub Dark Orange
+  #   icy-dark:               Icy Dark
+  #   dark-blue:              Dark Blue
+  #   photon-dark:            Photon Dark
+  #   boxy-light:             Boxy Light
+  #   gruvbox-dark:           Gruvbox Dark
   theme: 'github-light'
   crossorigin: 'anonymous'
 

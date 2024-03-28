@@ -6,11 +6,13 @@ draft: false
 featured: false
 highlight: true
 categories:
-  - Golang
+  - Programming Languages
 tags:
+  - Golang
   - GC
 
 toc: true
+comments: true
 ---
 
 ## Go中GC流程

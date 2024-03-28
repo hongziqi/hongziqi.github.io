@@ -10,8 +10,7 @@ toc: true
 
 categories:
   - Operating-System
-tags:
-  - OS
+
   
 comments: true
 ---
@@ -60,7 +59,7 @@ IO多路复用：IO多路复用就是通过一种机制，一个进程监听多�
 支持的系统调用有select、poll、epoll，本质上都是同步IO，因为它们都需要在读写事件准备好后，由应用程序自己负责读写，也就是说读写操作是阻塞的。而异步IO则是由内核负责读写，应用程序只需要等待通知即可。
 #### select
 相关函数定义如下：
-```
+```C++
 /* According to POSIX.1-2001, POSIX.1-2008 */
 #include <sys/select.h>
 /* According to earlier standards */
@@ -107,7 +106,7 @@ void FD_ZERO(fd_set *set);
 3. select返回，应用程序遍历监听的文件描述符，处理就绪的文件描述符
 
 伪代码如下：
-```
+```C++
 /* 
 * select服务端伪码
 * 首先一个线程不断接受客户端连接，每个连接就是一个文件描述符(fd)，然后不断塞入fdlist里面。
@@ -149,7 +148,7 @@ while (1) {
 #### poll
 poll 和 select 类似，也是同步IO多路复用模型，但是poll没有select的限制，没有最大连接数的限制，也没有fd_set的限制，而是通过`pollfd`结构体来传递文件描述符。
 相关函数定义如下：
-```
+```C++
 #include <poll.h>
 struct pollfd {
     int fd;         /* 文件描述符 */

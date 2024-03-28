@@ -6,9 +6,12 @@ draft: false
 featured: false
 highlight: true
 categories:
+  - Programming Languages
+tags:
   - Golang
 
 toc: true
+comments: true
 ---
 
 ##  slice的底层实现
@@ -66,7 +69,7 @@ slice := make([]int, 0, 3)
 情况一：原数组还有容量可以扩容（实际容量没有填充完），这种情况下，扩容以后的数组还是指向原来的数组， 对一个切片的操作可能影响多个指针指向相同地址的slice。
 
 情况二：原来数组的容量已经达到了最大值，再想扩容，go默认会先开一片内存区域，把原来的值拷贝过来，然后再执行append()操作。这种情况丝毫不影响原数组。
-```
+```go
 slice1 := []int{1, 2, 3} // 初始时，slice1 和底层数数组关联 
 slice2 := append(slice1, 4) // 扩容，slice2 引用新的底层数数组，而不是 slice1 的底层数数组
 ```
@@ -75,12 +78,12 @@ slice2 := append(slice1, 4) // 扩容，slice2 引用新的底层数数组，而
 
 ## nil切片和空切片指向的地址一样吗？
 1. nil 切片：**表示一个未分配内存的切片**，它的指针部分为nil，即没有指向任何有效的内存。当你声明一个切片但没有分配内存或将一个切片显式设置为nil时，将是一个nil 切片
-```
+```go
 var a []int
 data1 := (*reflect.SliceHeader)(unsafe.Pointer(&a)).Data // 0
 ```
 2. 空切片：空切片是一个切片，但长度和容量都为0，**指向已分配内存的空间**，它的指针部分不为空。它实际上是指向一个有效的内存地址，但由于其长度和容量为0，不能用于存储任何数据
-```
+```go
 b := make([]int, 0)
 c := make([]int, 0)
 data2 := (*reflect.SliceHeader)(unsafe.Pointer(&b)).Data // 824634859200

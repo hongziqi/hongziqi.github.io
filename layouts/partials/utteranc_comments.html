@@ -1,15 +1,24 @@
-{{ $utterances_enable := site.Params.utterances.enable }}
-{{ $repo := site.Params.utterances.repo }}
-{{ $issue_term := site.Params.utterances.issue_term }}
-{{ $theme := site.Params.utterances.theme }}
-{{ $crossorigin := site.Params.utterances.crossorigin }}
-
-{{ if .Params.comments }}
-<script src="https://utteranc.es/client.js"
-        repo="{{ $repo }}"
-        issue-term="{{ $issue_term }}"
-        theme="{{ $theme }}"
-        crossorigin="{{ $crossorigin }}"
-        async>
+{{- with .Site.Params.utterances }}
+{{- $options := . }}
+{{/* Merge the default options. */}}
+{{- if and $options (ne $options site.Params.utterances) }}
+{{- $options = merge site.Params.utterances $options }}
+{{- end }}
+{{- with $options }}
+{{ if .enable }}
+{{- if or (not .repo) (not .mapping) }}
+{{- warnf "[utterances] repo is required." }}
+{{- end }}
+<script
+  src="{{ .endpoint }}"
+  repo="{{ .repo }}"
+  issue-term="{{ .mapping }}"
+  {{ with .label }}label="{{ . }}"{{ end }}
+  theme="{{ .theme }}"
+  crossorigin="{{ .crossorigin }}"
+  async>
 </script>
 {{ end }}
+{{- end -}}
+{{- end -}}
+
