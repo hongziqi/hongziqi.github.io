@@ -156,6 +156,59 @@ Running f1()
 Running f2()
 ```
 
+### 装饰器叠放
+装饰器可以叠放，即一个函数可以被多个装饰器修饰，装饰器的执行顺序是从下往上执行，即从内到外执行。
+```python
+@decorator1
+@decorator2
+def func():
+    pass
+```
+相当于：
+```python
+def func():
+    pass
+func = decorator1(decorator2(func))
+```
+
+### 参数化装饰器
+装饰器也可以接受参数，这样可以根据参数的不同，为函数添加不同的功能。
+
+示例：
+```python
+def register(active=True):
+      def wrapper(func):
+          if active:
+              print(f"Registering {func}")
+          else:
+              print(f"Not registering {func}")
+              
+          return func
+      return wrapper
+
+@register()
+def f1():
+    print("Running f1()")
+    
+@register(active=False)
+def f2():
+    print("Running f2()")
+
+def main():
+    f1()
+    f2()
+    
+if __name__ == "__main__":
+    main()
+```
+输出为：
+```python
+Registering <function f1 at 0x0000021C9A1EEC00>
+Not registering <function f2 at 0x0000021C9A1EDA80>
+Running f1()
+Running f2()
+```
+
 ### 标准库中的装饰器
 
 #### 内置装饰器
@@ -308,59 +361,6 @@ def _(arg):
 fun(1) # Received an integer: 1
 fun("hello") # Received a string: hello
 fun(3.14) # I don't know what to do with this: 3.14
-```
-
-### 装饰器叠放
-装饰器可以叠放，即一个函数可以被多个装饰器修饰，装饰器的执行顺序是从下往上执行，即从内到外执行。
-```python
-@decorator1
-@decorator2
-def func():
-    pass
-```
-相当于：
-```python
-def func():
-    pass
-func = decorator1(decorator2(func))
-```
-
-### 参数化装饰器
-装饰器也可以接受参数，这样可以根据参数的不同，为函数添加不同的功能。
-
-示例：
-```python
-def register(active=True):
-      def wrapper(func):
-          if active:
-              print(f"Registering {func}")
-          else:
-              print(f"Not registering {func}")
-              
-          return func
-      return wrapper
-
-@register()
-def f1():
-    print("Running f1()")
-    
-@register(active=False)
-def f2():
-    print("Running f2()")
-
-def main():
-    f1()
-    f2()
-    
-if __name__ == "__main__":
-    main()
-```
-输出为：
-```python
-Registering <function f1 at 0x0000021C9A1EEC00>
-Not registering <function f2 at 0x0000021C9A1EDA80>
-Running f1()
-Running f2()
 ```
 
 ## 总结
