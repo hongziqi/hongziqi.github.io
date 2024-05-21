@@ -62,6 +62,16 @@ sections:
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - title: 软件开发工程师
+          company: 华为
+          company_url: ''
+          company_logo: org-huawei
+          location: 深圳
+          date_start: '2024-04-01'
+          description: |2-
+              主要负责:
+
+              * 昇思MindSpore-开源开发
         - title: 运维开发工程师
           company: 360数科
           company_url: ''
