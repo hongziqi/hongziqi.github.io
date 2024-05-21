@@ -6,6 +6,9 @@ draft: false
 featured: false
 highlight: true
 categories:
+  - Operating-System 
+
+tags:
   - Docker
 
 toc: true
