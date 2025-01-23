@@ -1,7 +1,6 @@
 --- 
-title: 分类
+title: 内容分类
 cms_exclude: true
-view: 3
 
 # Optional header image (relative to `static/media/` folder).
 header:
