@@ -42,64 +42,64 @@ sections:
       title: 个人简介
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: admin
-  - block: skills
-    content:
-      title: 技能
-      text: ''
-      # Choose a user to display skills from (a folder name within `content/authors/`)
-      username: admin
-    design:
-      columns: '1'
-  - block: experience
-    content:
-      title: 工作经历
-      # Date format for experience
-      #   Refer to https://docs.hugoblox.com/customization/#date-format
-      date_format: Jan 2006
-      # Experiences.
-      #   Add/remove as many `experience` items below as you like.
-      #   Required fields are `title`, `company`, and `date_start`.
-      #   Leave `date_end` empty if it's your current employer.
-      #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
-      items:
-        - title: 软件开发工程师
-          company: 华为
-          company_url: ''
-          company_logo: org-huawei
-          location: 深圳
-          date_start: '2024-04-01'
-          description: |2-
-              主要负责:
-
-              * 昇思MindSpore-开源开发
-        - title: 运维开发工程师
-          company: 360数科
-          company_url: ''
-          company_logo: org-360
-          location: 深圳
-          date_start: '2023-04-03'
-          date_end: '2023-11-01'
-          description: |2-
-              主要负责:
-
-              * 监控平台开发
-              * CMDB平台开发
-              * 自动化运维
-        - title: 运维开发工程师
-          company: ZEGO
-          company_url: ''
-          company_logo: org-zego
-          location: 深圳
-          date_start: '2020-02-20'
-          date_end: '2021-11-01'
-          description: |2-
-              主要负责:
-
-              * Issue报警平台开发
-              * CMDB平台开发
-              * 系统运维
-    design:
-      columns: '2'
+#  - block: skills
+#    content:
+#      title: 技能
+#      text: ''
+#      # Choose a user to display skills from (a folder name within `content/authors/`)
+#      username: admin
+#    design:
+#      columns: '1'
+#  - block: experience
+#    content:
+#      title: 工作经历
+#      # Date format for experience
+#      #   Refer to https://docs.hugoblox.com/customization/#date-format
+#      date_format: Jan 2006
+#      # Experiences.
+#      #   Add/remove as many `experience` items below as you like.
+#      #   Required fields are `title`, `company`, and `date_start`.
+#      #   Leave `date_end` empty if it's your current employer.
+#      #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
+#      items:
+#        - title: 软件开发工程师
+#          company: 华为
+#          company_url: ''
+#          company_logo: org-huawei
+#          location: 深圳
+#          date_start: '2024-04-01'
+#          description: |2-
+#              主要负责:
+#
+#              * 昇思MindSpore-开源开发
+#        - title: 运维开发工程师
+#          company: 360数科
+#          company_url: ''
+#          company_logo: org-360
+#          location: 深圳
+#          date_start: '2023-04-03'
+#          date_end: '2023-11-01'
+#          description: |2-
+#              主要负责:
+#
+#              * 监控平台开发
+#              * CMDB平台开发
+#              * 自动化运维
+#        - title: 运维开发工程师
+#          company: ZEGO
+#          company_url: ''
+#          company_logo: org-zego
+#          location: 深圳
+#          date_start: '2020-02-20'
+#          date_end: '2021-11-01'
+#          description: |2-
+#              主要负责:
+#
+#              * Issue报警平台开发
+#              * CMDB平台开发
+#              * 系统运维
+#    design:
+#      columns: '2'
   - block: collection
     id: blogs
     content:

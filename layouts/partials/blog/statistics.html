@@ -1,0 +1,8 @@
+<div class="blog-statistics">
+  <h3>Statistics</h3>
+  <ul>
+    <li>Total Posts: {{ len (where .Site.Pages "Section" "blog") }}</li>
+    <li>Total Categories: {{ len .Site.Taxonomies.categories }}</li>
+    <li>Total Tags: {{ len .Site.Taxonomies.tags }}</li>
+  </ul>
+</div>

@@ -1,0 +1,8 @@
+<div class="blog-recent-posts">
+  <h3>Recent Posts</h3>
+  <ul>
+    {{ range first 5 (where .Site.Pages "Section" "blog") }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+</div>

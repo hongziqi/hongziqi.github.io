@@ -13,9 +13,9 @@ main:
   - name: Tags
     url: '#tags'
     weight: 30
-#  - name: Projects
-#    url: '#projects'
-#    weight: 30
+  - name: Categories
+    url: categories/
+    weight: 30
 #  - name: Talks
 #    url: '#talks'
 #    weight: 40
