@@ -1,10 +1,14 @@
 {{ define "main" }}
+<link rel="stylesheet" href="/css/category.css">
 <div class="universal-wrapper pt-3">
   <h1>{{ .Title }}</h1>
   <div class="universal-wrapper">
-    <ul>
+    <ul class="category-list">
       {{ range .Data.Pages }}
-      <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+      <li class="category-item">
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{ if gt (len .Data.Pages) 0 }}<span class="article-count"> ({{ len .Data.Pages }})</span>{{ end }}
+      </li>
       {{ end }}
     </ul>
   </div>

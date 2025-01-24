@@ -12,14 +12,11 @@
 zh:
   languageCode: zh-Hans
   contentDir: content
-  title: 小柒的博客
+  title: CandyHong
   params:
     description: Site description in Chinese...
   menu:
     main:
-      - name: 主页
-        url: '#about'
-        weight: 10
       - name: 技术博客
         url: /blog
         weight: 20

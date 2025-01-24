@@ -1,6 +1,6 @@
 ---
 # Display name
-title: 洪子淇
+title: 是小柒鸭
 
 # Name pronunciation (optional)
 name_pronunciation: Candy Hong
@@ -95,9 +95,10 @@ social:
     link: https://github.com/hongziqi
 
 # Highlight the author in author lists? (true/false)
-highlight_name: true
+highlight_name: false
 ---
 
-三年运维开发经验(DevOps)。曾在网易、即构、360数科任职运维开发工程师。
+热爱撸猫、热爱运动、热爱学习的普通打工人。
 
-技术栈：Python、Golang、Django、Flask、Vue、K8s、Prometheus、Grafana、Jenkins等
+座右铭：
+在无聊的时间里就从事学习。  —— 亚伯拉罕·林肯

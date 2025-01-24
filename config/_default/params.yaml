@@ -18,7 +18,7 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: '小柒的博客.'
+    description: '小柒.'
 #    twitter: 'GetResearchDev'
   analytics:
     google_analytics: ''
@@ -37,15 +37,17 @@ marketing:
 header:
   navbar:
     enable: true
-    align: l
+    blox: "navbar"
+    align: "center"
     show_logo: true
     show_language: false
     show_day_night: true
     show_search: false
+    fixed_to_top: true
     logo:
-      text: ""
+      text: "CandyHong"
       # Logo filename in `assets/media/` folder
-      filename: "logo.svg"
+      # filename: "logo.svg"
 #    highlight_active_link: true
 
 # Site footer

@@ -11,15 +11,6 @@ baseURL: 'https://hongziqi.github.io' # Website URL
 ############################
 
 cascade:
-  # Docs folder options
-#  - _target:
-#      path: /docs/**
-#    editable: true
-#    show_breadcrumb: true
-#    # Hide date from Next In Series
-#    show_date: false
-#    # Show date modified at end of content
-#    show_date_updated: true
   # Blog post options
   - _target:
       path: /blog/**
@@ -37,7 +28,12 @@ cascade:
     header:
       navbar:
         enable: true
-
+  # Blog section options
+  - _target:
+      path: /blog/*
+      kind: section
+    # Set the listing view
+    view: date-title-summary
 
 ############################
 ## LANGUAGE
@@ -64,17 +60,16 @@ footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
 enableInlineShortcodes: true
 permalinks:
-  authors: '/author/:slug'
-  tags: '/tag/:slug'
-  categories: '/category/:slug'
+  authors: '/author/:slug/'
+  tags: '/tag/:slug/'
+  categories: '/category/:slug/'
 disableAliases: true
 outputs:
-  home: [HTML, RSS, WebAppManifest, headers, redirects]
-  page: [HTML]
+  home: [HTML, RSS, headers, redirects]
   section: [HTML, RSS]
 imaging:
   resampleFilter: lanczos
-  quality: 85
+  quality: 95
   anchor: smart
 timeout: 600000
 taxonomies:
@@ -83,22 +78,9 @@ taxonomies:
   author: authors
 markup:
   _merge: deep
-related:
-  threshold: 80
-  includeNewer: true
-  toLower: true
-  indices:
-    - name: tags
-      weight: 100
-    - name: categories
-      weight: 70
+  highlight:
+    lineNos: false
 security:
   _merge: deep
 sitemap:
   _merge: deep
-minify:
-  _merge: deep
-tableOfContents:
-    endLevel: 8
-    ordered: false
-    startLevel: 1
