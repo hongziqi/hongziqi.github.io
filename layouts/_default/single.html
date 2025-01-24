@@ -1,12 +1,7 @@
 {{- define "main" -}}
+<link rel="stylesheet" href="/css/blog.css">
 <div class="container-fluid docs">
   <div class="row flex-xl-nowrap">
-    <div class="d-none d-xl-block col-xl-2 docs-toc">
-      <ul class="nav toc-top">
-        <li><a href="#" id="back_to_top" class="docs-toc-title">目录</a></li>
-      </ul>
-      {{ .TableOfContents }}
-    </div>
     <main class="col-12 col-md-0 col-xl-10 py-md-3 pl-md-5 docs-content" role="main">
       <article class="article">
         {{ partial "page_header" . }}
@@ -18,6 +13,24 @@
         </div>
       </article>
     </main>
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <div class="custom-box">
+        <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">目录</a></li>
+        </ul>
+        {{ .TableOfContents }}
+      </div>
+      <div class="custom-box">
+        <img src="/img/recent-posts.png" class="custom-icon"/><span>最近文章</span>
+        <ul class="recent-posts">
+          {{ range first 5 (sort .Site.RegularPages "Date" "desc") }}
+          <li class="recent-post-item">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 {{- end -}}

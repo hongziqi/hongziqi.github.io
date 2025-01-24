@@ -1,32 +1,40 @@
-.blog-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+.custom-box {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 5px 0 5px;
+  margin-bottom: 20px;
 }
 
-.blog-left-column, .blog-right-column {
-  padding: 15px;
-  margin: 10px;
-  border: 1px solid rgba(221, 221, 221, 0.56);
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-sizing: border-box;
+.custom-box .custom-icon {
+  display: inline-block; /* 设置为 inline-block */
+  margin-right: 5px; 
+  width: 20px; /* 设置图片宽度 */
+  height: 20px; /* 设置图片高度 */
+  margin-left: 10px;
 }
 
-.blog-left-column {
-  flex: 1 1 60%;
+.custom-box span {
+  display: inline-block; /* 设置为 inline-block */
 }
 
-.blog-right-column {
-  flex: 1 1 40%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.recent-posts {
+  list-style-type: none; /* 移除默认的列表样式 */
+  padding: 0;
+  padding-bottom: 10px;
 }
 
-.blog-card {
-  padding: 15px;
-  border: 1px solid rgba(221, 221, 221, 0.56);
-  border-radius: 5px;
-  background-color: #fff;
+.recent-post-item {
+  transition: background-color 0.3s ease, padding-left 0.3s ease; /* 添加动画效果 */
+  padding: 0 10px; 
+}
+
+.recent-post-item a {
+  color: inherit; /* 链接颜色与父元素一致 */
+  text-decoration: none; /* 移除下划线 */
+  font-size: 16px;
+}
+
+.recent-post-item:hover {
+  background-color: #e6f7ff; /* 设置选中时的背景颜色为淡蓝色 */
+  padding-left: calc(1rem); /* 文字框向内缩 */
 }

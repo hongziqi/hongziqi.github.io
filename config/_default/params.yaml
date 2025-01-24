@@ -48,7 +48,6 @@ header:
       text: "CandyHong"
       # Logo filename in `assets/media/` folder
       # filename: "logo.svg"
-#    highlight_active_link: true
 
 # Site footer
 
