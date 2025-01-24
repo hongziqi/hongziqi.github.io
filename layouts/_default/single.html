@@ -23,7 +23,7 @@
       <div class="custom-box">
         <img src="/img/recent-posts.png" class="custom-icon"/><span>最近文章</span>
         <ul class="recent-posts">
-          {{ range first 5 (sort .Site.RegularPages "Date" "desc") }}
+          {{ range first 4 (sort .Site.RegularPages "Date" "desc") }}
           <li class="recent-post-item">
             <a href="{{ .Permalink }}">{{ .Title }}</a>
           </li>
