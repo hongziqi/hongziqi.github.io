@@ -1,7 +1,7 @@
 :root {
-    --highlight-bg-light: rgba(255, 255, 255, 0.7);
+    --highlight-bg-light: #bdc5ce;
     --highlight-bg-dark: rgba(45, 45, 45, 0.6);
-    --pre-bg-light: rgba(255, 255, 255, 0.7);
+    --pre-bg-light: #d9dcde;
     --pre-bg-dark: rgba(11, 39, 50, 0.6);
     --highlight-bg: var(--highlight-bg-light); /* 默认使用 light 主题 */
     --pre-bg: var(--pre-bg-light); /* 默认使用 light 主题 */
