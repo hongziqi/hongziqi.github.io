@@ -41,8 +41,9 @@ header:
     align: "center"
     show_logo: true
     show_language: false
-    show_day_night: true
+    show_day_night: false
     show_search: false
+    show_theme_chooser: true
     fixed_to_top: true
     logo:
       text: "CandyHong"
@@ -54,7 +55,7 @@ header:
 footer:
   block: minimal
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} By Candy Hong.'
     license:
       enable: false
       allow_derivatives: false

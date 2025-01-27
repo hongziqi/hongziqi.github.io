@@ -15,6 +15,9 @@
 
 .custom-box span {
   display: inline-block; /* 设置为 inline-block */
+  opacity: 0.8; /* 设置透明度 */
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .recent-posts {
@@ -30,11 +33,12 @@
 
 .recent-post-item a {
   color: inherit; /* 链接颜色与父元素一致 */
+  opacity: 0.8; /* 设置透明度 */
   text-decoration: none; /* 移除下划线 */
   font-size: 16px;
 }
 
 .recent-post-item:hover {
-  background-color: #e6f7ff; /* 设置选中时的背景颜色为淡蓝色 */
+  background-color: #58c1b6; /* 设置选中时的背景颜色为淡蓝色 */
   padding-left: calc(1rem); /* 文字框向内缩 */
 }

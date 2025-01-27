@@ -25,7 +25,7 @@
   
   .category-item a {
     text-decoration: none;
-    color: #333;
+    color: inherit;
   }
   
   .category-item a:hover {
@@ -33,5 +33,6 @@
   }
 
   .category-item span.article-count {
-    color: #ccc; /* 浅灰色 */
+    color: inherit; /* 浅灰色 */
+    opacity: 0.7; /* 透明度 */
   }

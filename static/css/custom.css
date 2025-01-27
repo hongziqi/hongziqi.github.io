@@ -1,0 +1,147 @@
+:root {
+    --highlight-bg-light: rgba(255, 255, 255, 0.7);
+    --highlight-bg-dark: rgba(45, 45, 45, 0.6);
+    --pre-bg-light: rgba(255, 255, 255, 0.7);
+    --pre-bg-dark: rgba(11, 39, 50, 0.6);
+    --highlight-bg: var(--highlight-bg-light); /* 默认使用 light 主题 */
+    --pre-bg: var(--pre-bg-light); /* 默认使用 light 主题 */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --highlight-bg: var(--highlight-bg-dark);
+        --pre-bg: var(--pre-bg-dark);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --highlight-bg: var(--highlight-bg-light);
+        --pre-bg: var(--pre-bg-light);
+    }
+}
+
+.chroma {
+    background-color: var(--pre-bg);
+}
+
+pre {
+    margin: 0;
+    border-radius: 0%;
+    background-color: var(--pre-bg);
+    font-family: Menlo, Monaco, "Courier New", monospace;
+}
+
+.highlight {
+    position: relative;
+    background-color: var(--highlight-bg);
+    border: 0px solid var(--highlight-bg);
+    border-radius: 5px;
+    padding: 20px 0px 0px 0px; /* 增加顶部填充以容纳语言标签 */
+    overflow-x: auto;
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), 2px 4px 8px rgba(0, 0, 0, 0.1); /* 调整阴影 */
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.highlight:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.15); /* 调整阴影 */
+}
+
+.highlight .window-controls {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    display: flex;
+    gap: 5px;
+}
+
+.highlight .window-controls .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.highlight .window-controls .dot.red {
+    background-color: #ff5f56;
+}
+
+.highlight .window-controls .dot.yellow {
+    background-color: #ffbd2e;
+}
+
+.highlight .window-controls .dot.green {
+    background-color: #27c93f;
+}
+
+.highlight .toggle-button {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    width: 12px;
+    height: 12px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 3; /* 确保箭头按钮在最上层 */
+    transition: transform 0.3s ease;
+}
+
+.highlight.collapsed .toggle-button {
+    transform: rotate(-90deg); /* 逆时针旋转90度 */
+}
+
+.highlight.collapsed pre {
+    display: none; /* 隐藏代码块 */
+}
+
+.highlight .btn-copy-code {
+    line-height: 0.9;
+    margin-top: 20px;
+    background-color: #43668d;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.highlight .btn-copy-code:hover {
+    line-height: 0.9;
+    background-color: #0056b3;
+    border: none;
+}
+
+.highlight .btn-copy-code .copied {
+    line-height: 0.9;
+    margin-top: 20px;
+    background-color: #43668d;
+    color: white; /* 保持文字颜色 */
+    border: none;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-copy-code:focus, .btn-copy-code.focus {
+    border: none;
+    line-height: 0.9;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+}
