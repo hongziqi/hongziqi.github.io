@@ -1,5 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
     var copyButtons = document.querySelectorAll('.btn-copy-code');
+    var recentPostsIcon = document.getElementById('recent-posts-icon');
+
+    function updateRecentPostsIcon() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            recentPostsIcon.src = '/img/recent-posts-light.png';
+        } else {
+            recentPostsIcon.src = '/img/recent-posts-dark.png';
+        }
+    }
+    // 初始设置图片
+    updateRecentPostsIcon();
+
+    // 监听主题变化
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateRecentPostsIcon);
 
     copyButtons.forEach(function(button) {
         // 动态创建下箭头按钮

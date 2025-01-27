@@ -19,11 +19,11 @@
       <div class="custom-box">
         <ul class="nav toc-top">
         <li><a href="#" id="back_to_top" class="docs-toc-title">目录</a></li>
-        </ul>
+        </ul> 
         {{ .TableOfContents }}
       </div>
       <div class="custom-box">
-        <img src="/img/recent-posts.png" class="custom-icon"/><span>最近文章</span>
+        <img id="recent-posts-icon" src="/img/recent-posts-dark.png" class="custom-icon"/><span>最近文章</span>
         <ul class="recent-posts">
           {{ range first 4 (sort .Site.RegularPages "Date" "desc") }}
           <li class="recent-post-item">
