@@ -101,7 +101,7 @@ brew install graphviz
 dot -Tpng *.dot -o *.png
 ```
 
-![](images/mindir_01.png)
+![](images/mindir.png)
 
 在MindIR中，一个函数图（FuncGraph）表示一个普通函数的定义，函数图一般由ParameterNode、ValueNode和CNode组成有向无环图，可以清晰地表达出从参数到返回值的计算过程。其中紫色表示ValueNode，蓝色表示ParameterNode，黄色的表示CNode，CNode的第一个输入链接着调用的函数，如test_f、sub、add等，CNode的其他输入链接这调用的参数，参数值可以来自于ParameterNode、ValueNode和其他CNode。
 由上图可知，最右侧表示test_f整个函数定义，图二表示函数的具体逻辑，先调用sub然后再调用add函数，最后return其结果。
