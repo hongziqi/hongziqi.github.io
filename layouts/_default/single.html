@@ -27,7 +27,9 @@
         <ul class="recent-posts">
           {{ range first 4 (sort .Site.RegularPages "Date" "desc") }}
           <li class="recent-post-item">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <a href="{{ .Permalink }}" title="{{ .Title }}">
+              {{ .Title }}
+            </a>
           </li>
           {{ end }}
         </ul>
