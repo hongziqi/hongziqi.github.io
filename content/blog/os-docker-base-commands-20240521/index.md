@@ -6,7 +6,7 @@ draft: false
 featured: false
 highlight: true
 categories:
-  - Operating-System 
+  - Operating System 
 
 tags:
   - Docker

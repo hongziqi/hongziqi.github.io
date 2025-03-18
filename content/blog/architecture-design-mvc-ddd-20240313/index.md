@@ -6,7 +6,7 @@ draft: false
 featured: false
 highlight: true
 categories:
-  - Architecture-Design
+  - Architecture Design
 
 toc: true
 comments: true

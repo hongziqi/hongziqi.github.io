@@ -9,7 +9,7 @@ highlight: true
 toc: true
 
 categories:
-  - Operating-System
+  - Operating System
 
   
 comments: true

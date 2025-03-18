@@ -6,7 +6,7 @@ draft: false
 featured: false
 highlight: true
 categories:
-  - Computer-Network
+  - Computer Network
 tags:
   - HTTP/TCP、UDP
 
