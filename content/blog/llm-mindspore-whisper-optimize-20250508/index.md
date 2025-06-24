@@ -1,5 +1,5 @@
 ---
-title: 基于MindSpore的Whisper模型推理优化实践
+title: Whisper加速实战：教你用MindSpore Profiler为推理提速
 summary: 介绍了基于MindSpore的Whisper模型推理优化实践，包括FlashAttention2算法接入及Conv1D算子加速等。
 date: 2025-05-08
 draft: false
@@ -15,50 +15,49 @@ comments: true
 ---
 
 
-在使用 MindSpore NLP 的 Whisper 模型进行推理时，模力方舟团队发现推理性能存在瓶颈。例如，对于一段 91 秒的音频，模型的识别时间达到 95 秒，推理开销较大。当前环境为 `mindspore==2.5.0` 与 `mindnlp==0.4.0`，且模型仅支持 **Eager** 模式，无法充分发挥硬件性能。
+Whisper 是由 OpenAI 开发的多语言语音识别模型。一经开源受到开发者广泛关注和使用，在使用中遇到其耗时过高问题，一段 91 秒的音频，识别耗时长达 95 秒， 推理效率不足，难以满足实时应用需求。
 
-为解决此问题，我们系统分析了注意力机制的执行方式，并尝试引入高性能的 **FlashAttention2** 实现。同时，我们也借助 **MindSpore Profiler** 定位性能瓶颈，最终通过引入原生的 **Conv1D** 算子，进一步提升整体推理性能。
+本文将系统分享我们在MindSpore 2.5.0 + MindSpore NLP 0.4.0环境下，通过引入FlashAttention 2 与优化Conv1D，借助MindSpore Profiler[1]精准定位瓶颈，最终将Whisper模型推理耗时压缩至60秒以内的全过程。
+
+目前该模型已上线模力方舟，点击阅读原文可直接体验。
+
+https://ai.gitee.com/serverless-api/packages/1495?model=whisper-large-v3&package=1495
 
 ## 一、三种注意力机制对比
-| 模式                                     | 特点                  | 性能表现        |
-| -------------------------------------- | ------------------- | ----------- |
-| **Eager**                              | 默认执行方式，算子按顺序执行，调试友好 | 无融合优化，推理慢   |
-| **SDPA**（Scaled Dot-Product Attention） | 经典注意力实现             | 适用于普通推理需求   |
-| **FlashAttention2**                   | 高性能实现，显著减少显存和加速计算   | 长序列推理性能大幅提升 |
-## 二、接入 FlashAttention2 模式
-为提升推理速度，我们在原始 eager 模式基础上引入了 **FlashAttention2** 。改动包括：
-### 1. 适配 `flash-attn` 库
-适配 `flash-attn` 库中 `bert-padding.py` 中的关键方法，包括：
-- `index_put_first_axis`
-- `index_first_axis`
-- `unpad_input`
-- `pad_input`
-### 2. 新增支撑模块 `modeling_flash_attention_utils.py`
-新增辅助函数实现：
-- `_get_unpad_data`
-- `_unpad_input`
-- `_prepare_fa2_from_position_ids`
-- `_fa_peft_integration_check`
-- `_flash_attention_forward`
-### 3. 修改 Whisper 模型支持 FlashAttention2
-在 `modeling_whisper.py` 中加入 `WhisperFlashAttention2` 逻辑，允许初始化模型时通过：
-```python
-attn_implementation="flash_attention_2"
-```
-来启用新模式。
-### 4. 性能初步评估
-推理耗时从 95s 降至约 85s，性能提升约 **10% 性能**。但通过 Profiler 分析，发现瓶颈仍存在。
+| 模式                        | 特点                           | 适用场景   |
+| ------------------------- | ---------------------------- | ------ |
+| **Eager**                 | 直接计算完整注意力机制                  | 短序列    |
+| **SDPA**                  | 通过缩放点积计算注意力权重，优化显存使用         | 中等长度序列 |
+| **FlashAttention 2（FA2）** | ”分块处理+重计算“，避免存储完整矩阵，大幅降低显存消耗 | 长序列任务  |
 
-## 三、进一步优化：替换 Conv1D 实现
-### 1. Profiler 分析结果
-我们使用如下脚本采集性能数据：
+**FlashAttention 2** 为何能加速？想象一下拼图游戏：
+1. 切块处理：就像无法一次性处理超大图片，FA2将长序列切分成与硬件缓存匹配的“小拼图”分批处理，避免内存爆炸。
+2. 分块统计：在每个“小拼图”内，先扫描计算关键统计量（如最大值、归一化因子），相当于找出每块图像的“关键特征”。
+3. 按需重算：​​反向传播时，仅需保存少量统计量，按需重新计算中间结果，极大节省显存
+这样的”分块处理＋重计算“策略，显著降低了显存使用，提高了并行计算效率，特别适用于语音识别等需要处理超长序列的任务。
+
+## 二、接入 FlashAttention2 模式
+我们将FlashAttention 2集成到MIndSpore NLP中，具体流程[2]如下：
+### 1. 核心适配：
+* 移植 `flash-attn` 库中处理填充(Padding)的关键函数 (`index_put_first_axis`, `index_first_axis`, `unpad_input`, `pad_input`)
+* 新增 `modeling_flash_attention_utils.py` 模块，实现支撑 FA2 的辅助函数（如 `_get_unpad_data`, `_flash_attention_forward` 等）
+### 2. 模型改造：
+* 在 `modeling_whisper.py` 中新增 `WhisperFlashAttention2` 模块
+* 用户只需在初始化模型时设置 `attn_implementation="flash_attention_2"` 即可启用FA2
+### 3. 初站告捷：
+* 91秒音频推理时间从 ​**​95秒降至约85秒​**​，性能提升约 ​**​10%​**​， 但性能仍有优化空间。
+
+## 三、Profiler 精准定位瓶颈：Conv1D 成“罪魁祸首”
+初步优化后性能仍有瓶颈？MindSpore Profiler成为关键突破口！
+### 1. Profiler：性能瓶颈的“显微镜”​
+* 功能强大：MindSpore 官方性能调优利器，能够对神经网络的各个环节进行精细的性能采集和分析
+* 使用便捷：只需先创建并初始化Profiler对象，设置采集级别和调度策略，然后在推理过程中自动收集数据
 ```python
 import mindspore
 from mindnlp.transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
-from mindspore import Profiler
 from mindspore.profiler import ProfilerLevel, schedule, tensorboard_trace_handler
 
-model_id = ""openai/whisper-large-v3""
+model_id = "openai/whisper-large-v3"
 model = AutoModelForSpeechSeq2Seq.from_pretrained(
     model_id, 
     ms_dtype=mindspore.float16, 
@@ -75,32 +74,47 @@ pipe = pipeline(
     ms_dtype=mindspore.float16,
     return_timestamps=True,
 )
+experimental_config = mindspore.profiler._ExperimentalConfig(
+                            profiler_level=ProfilerLevel.Level0,
+                            aic_metrics=AicoreMetrics.AiCoreNone,
+                            l2_cache=False,
+                            mstx=False,
+                            data_simplification=False,
+                            export_type=[ExportType.Text])
 # Profiler 数据默认存储在路径：
 # ./data/modelfoundry-prod-node-xxx/ASCEND_PROFILER_OUTPUT
-with Profiler(
-        profiler_level=ProfilerLevel.Level0,
-        schedule=schedule(wait=0, warmup=0, active=1, repeat=1, skip_first=0),
-        on_trace_ready=tensorboard_trace_handler
-     ) as prof:
-	pipe("/path/to/yourself.mp3")
-	prof.step()
+with mindspore.profiler.profile(
+    activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
+    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1, repeat=1, skip_first=0),
+    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+    profile_memory=False,
+    experimental_config=experimental_config
+    ) as prof:
+    pipe("/path/to/yourself.mp3") # 运行你的推理代码
+    prof.step()
 ```
-通过使用 [MindStudio Insight](https://www.hiascend.com/developer/download/community/result?module=pt+sto+cann) 对性能数据进行分析后发现，模型中 `Conv1D` 实现依赖 `Conv2D` 间接方式，且运行在 **CPU** 侧，成为主要的性能瓶颈。
+* 可视化分析：使用MindStudio Insight[3]或浏览器内置的Trace Viewer分析生成的timeline文件。
+
+### 2. 性能瓶颈：低效的Conv1D实现​
+使用 **MindSpore Studio（版本 8.0.RC1）** 对 timeline 文件进行分析后，可清晰定位性能瓶颈：
+* 瓶颈算子：`Conv1D`
+* 问题根源：旧版本MindSpore (<=2.5.0)的 `Conv1D` 是通过 `Conv2D` 间接模拟实现的：
+	- 存在​**​多余的维度转换​**​操作
+	- 计算主要在 ​CPU​​ 上执行，无法利用 NPU 加速
+	- 导致​**​频繁的内存拷贝​**​，拖累整体速度
+
 ![](images/whisper_profiler_before.png)
 
-### 2. 原因定位
-旧版本的 `Conv1D` 是通过 `Conv2D` 间接构造实现，存在：
-- 多余维度转换
-- CPU 执行
-- 内存频繁拷贝
-### 3. 解决方案
-自 **MindSpore 2.6.0rc1** 起，框架已提供高效的原生 `Conv1D` 实现，支持图模式和硬件加速。在此基础上，我们重构模型中的 `Conv1D` 调用，显著缩短推理时间。
-### 4. 最终效果
-结合 `FlashAttention2` 和 `Conv1D` 及其它算子优化后，最终在 **MindSpore 2.6.0rc1** 版本下，91 秒音频推理时间缩短至约 **57 秒**，整体性能提升 **40%**，CPU 占用率显著下降。
+### 3. 解决方案：引入高效 Conv1D 实现
+自 **MindSpore 2.6.0** 起，框架已提供更高效的 Conv1D 实现，支持图模式和硬件加速。将框架升级到 ​**​MindSpore 2.6.0​**​ 并适配新版的 `Conv1D` 后，结合之前集成的 `FlashAttention 2`：
+* - 推理耗时由原来的95秒优化至平均**60秒内**，满足准实时需求（RTF<1）
+* 相比原始版本提升超过 **35%**
+* **CPU占用率显著下降​**​，资源利用更高效
+
 ![](images/whisper_profiler_after.png)
 
 ## 四、手把手推理教程
-
+想亲身体验优化后的超快Whisper？跟着以下步骤操作：
 ### 1. 下载镜像
 执行以下Shell命令，拉取 MindSpore 容器镜像：
 ```bash
@@ -151,15 +165,16 @@ cd mindnlp
 bash scripts/build_and_reinstall.sh
 ```
 ### 4. 推理代码示例
-国内可以配置 hf 镜像源拉取模型：
-```bash
-export HF_ENDPOINT=https://hf-mirror.com
-```
-执行以下代码进行推理：
+
 ```python
 import mindspore
 from mindnlp.transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
+# 国内可设置HF镜像 (可选) 
+import os 
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+
+# 加载模型与处理器，启用FlashAttention 2
 model_id = "openai/whisper-large-v3"
 model = AutoModelForSpeechSeq2Seq.from_pretrained(
     model_id, 
@@ -169,6 +184,8 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
     attn_implementation="flash_attention_2",
 )
 processor = AutoProcessor.from_pretrained(model_id)
+
+# 创建推理管道
 pipe = pipeline(
     "automatic-speech-recognition",
     model=model,
@@ -178,11 +195,16 @@ pipe = pipeline(
     return_timestamps=True,
 )
 
-result = pipe("/path/to/yourself.mp3")
+# 执行推理
+audio_file = "/path/to/your/audio.mp3" # 替换为你的音频文件路径
+result = pipe(audio_file)
+print(result["text"])    # 打印识别结果
 ```
 
-## 五、相关材料
-
-* [MindNLP:WhisperFlashAttention2](https://github.com/mindspore-lab/mindnlp/pull/2018)
-* [MindSpore Profiler](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.Profiler.html?highlight=profiler#mindspore.Profiler)
+## 引用
+[1] MindSpore 性能采集工具 Profiler:
+https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.Profiler.html
+[2] Whisper接入FlashAttention2 流程: https://github.com/mindspore-lab/mindnlp/pull/2018
+[3] MindStudio Insight工具下载: 
+https://www.hiascend.com/developer/download/community/result?module=sto
 
