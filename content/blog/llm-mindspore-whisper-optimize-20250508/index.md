@@ -19,7 +19,7 @@ Whisper 是由 OpenAI 开发的多语言语音识别模型。一经开源受到�
 
 本文将系统分享我们在MindSpore 2.5.0 + MindSpore NLP 0.4.0环境下，通过引入FlashAttention 2 与优化Conv1D，借助MindSpore Profiler[1]精准定位瓶颈，最终将Whisper模型推理耗时压缩至60秒以内的全过程。
 
-目前该模型已上线模力方舟，点击阅读原文可直接体验。
+目前该模型已上线模力方舟，点击下述链接可直接体验。
 
 https://ai.gitee.com/serverless-api/packages/1495?model=whisper-large-v3&package=1495
 
@@ -208,7 +208,9 @@ https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.Profil
 [3] MindStudio Insight工具下载: 
 https://www.hiascend.com/developer/download/community/result?module=sto
 
-原文作者:hongziqi
+---
+原文作者: hongziqi
+
 首发于昇思MindSpore公众号，转载到开源时刻等平台:
 https://mp.weixin.qq.com/s/0MAHoQoxKBnWOPou-h5nJg
 https://mp.weixin.qq.com/s/tR8hIKX9GGZ8w7ROrQLtVg
