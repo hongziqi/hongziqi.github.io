@@ -208,3 +208,7 @@ https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.Profil
 [3] MindStudio Insight工具下载: 
 https://www.hiascend.com/developer/download/community/result?module=sto
 
+原文作者:hongziqi
+首发于昇思MindSpore公众号，转载到开源时刻等平台:
+https://mp.weixin.qq.com/s/0MAHoQoxKBnWOPou-h5nJg
+https://mp.weixin.qq.com/s/tR8hIKX9GGZ8w7ROrQLtVg
